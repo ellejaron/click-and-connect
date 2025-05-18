@@ -50,9 +50,14 @@
       font-size: 1rem;
       cursor: pointer;
       width: 100%;
+      transition: background-color 0.2s;
     }
-    button:hover {
+    button:hover:enabled {
       background-color: #2563eb;
+    }
+    button:disabled {
+      background-color: #64748b;
+      cursor: not-allowed;
     }
     .footer {
       margin-top: 1.5rem;
@@ -92,7 +97,7 @@
     form.addEventListener('submit', async function (e) {
       e.preventDefault();
 
-      // Show "Submitting…" instantly
+      // Disable button and show "Submitting…"
       submitBtn.disabled = true;
       messageBox.style.display = 'block';
       messageBox.style.color = '#facc15'; // yellow
@@ -103,6 +108,7 @@
       try {
         await fetch(scriptURL, { method: 'POST', body: formData });
 
+        // Show success
         messageBox.style.color = '#4ade80'; // green
         messageBox.textContent = "✅ You're in! Check your inbox soon.";
         form.reset();
@@ -111,6 +117,7 @@
           messageBox.style.display = 'none';
         }, 2000);
       } catch (error) {
+        // Show error
         messageBox.style.color = '#f87171'; // red
         messageBox.textContent = 'Oops! Something went wrong.';
         console.error('Submission error:', error);
