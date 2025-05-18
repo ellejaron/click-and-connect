@@ -65,13 +65,24 @@
   <div class="container">
     <h1>🚀 Join the Future</h1>
     <p>Stay ahead with weekly insights on AI, automation, and smarter workflows. No fluff. Just useful tools + ideas.</p>
-    <form action="https://formspree.io/f/yourformid" method="POST">
+    <form action="https://script.google.com/macros/s/AKfycbwT9nIJxDYu73w4VK8TdYW-HVRYC_Ba_vdTlzChRVamiNAMNsfyVPVSgF-l8qMWMQQb/exec" method="POST" onsubmit="showSuccessMessage(); return true;">
       <input type="email" name="email" placeholder="Enter your email" required />
       <button type="submit">→ Get the Insights</button>
     </form>
+    <div id="success-message" style="display:none; color:#4ade80; margin-top:1rem;">
+      ✅ You're in! Check your inbox soon.
+    </div>
     <div class="footer">
       Built for builders, tinkerers, and the AI-curious. ⚡
     </div>
   </div>
+
+  <script>
+    function showSuccessMessage() {
+      setTimeout(() => {
+        document.getElementById('success-message').style.display = 'block';
+      }, 500); // fake delay to simulate submission
+    }
+  </script>
 </body>
 </html>
