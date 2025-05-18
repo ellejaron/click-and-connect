@@ -50,6 +50,7 @@
       font-size: 1rem;
       cursor: pointer;
       width: 100%;
+      transition: background-color 0.3s ease;
     }
     button:hover {
       background-color: #2563eb;
@@ -64,6 +65,13 @@
       color: #4ade80;
       margin-top: 1rem;
       font-size: 1rem;
+      transition: opacity 0.3s ease;
+    }
+    #loading-indicator {
+      margin-top: 0.5rem;
+      font-size: 0.95rem;
+      color: #60a5fa;
+      display: none;
     }
   </style>
 </head>
@@ -74,12 +82,11 @@
     
     <form id="signup-form">
       <input type="email" name="email" placeholder="Enter your email" required />
-      <button type="submit">→ Get the Insights</button>
+      <button type="submit" id="submit-btn">→ Get the Insights</button>
     </form>
 
-    <div id="success-message">
-      ✅ You're in! Check your inbox soon.
-    </div>
+    <div id="loading-indicator">Submitting…</div>
+    <div id="success-message">✅ You're in! Check your inbox soon.</div>
 
     <div class="footer">
       Built for builders, tinkerers, and the AI-curious. ⚡
@@ -89,29 +96,35 @@
   <script>
     const form = document.getElementById('signup-form');
     const successMessage = document.getElementById('success-message');
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbwT9nIJxDYu73w4VK8TdYW-HVRYC_Ba_vdTlzChRVamiNAMNsfyVPVSgF-l8qMWMQQb/exec'; // Replace with your actual URL
+    const loadingIndicator = document.getElementById('loading-indicator');
+    const submitBtn = document.getElementById('submit-btn');
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwT9nIJxDYu73w4VK8TdYW-HVRYC_Ba_vdTlzChRVamiNAMNsfyVPVSgF-l8qMWMQQb/exec';
 
     form.addEventListener('submit', async function (e) {
       e.preventDefault();
+
+      // UI feedback
+      submitBtn.disabled = true;
+      loadingIndicator.style.display = 'block';
 
       const formData = new FormData(form);
 
       try {
         await fetch(scriptURL, { method: 'POST', body: formData });
 
-        // Show success message
+        // Success UI
+        loadingIndicator.style.display = 'none';
         successMessage.style.display = 'block';
-
-        // Clear form
         form.reset();
 
-        // Hide success after 2 seconds
         setTimeout(() => {
           successMessage.style.display = 'none';
         }, 2000);
       } catch (error) {
         alert('Oops! Something went wrong.');
         console.error('Submission error:', error);
+      } finally {
+        submitBtn.disabled = false;
       }
     });
   </script>
