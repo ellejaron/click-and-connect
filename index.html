@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Join the Future – AI + Automation Newsletter</title>
   <style>
     body {
@@ -33,12 +33,26 @@
       font-size: 1rem;
       margin-bottom: 2rem;
     }
-    .beehiiv-iframe {
-      border-radius: 8px;
+    input[type="email"] {
+      padding: 0.75rem;
       border: none;
+      border-radius: 8px;
       width: 100%;
-      height: 320px;
-      overflow: hidden;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+    button {
+      background-color: #3b82f6;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      cursor: pointer;
+      width: 100%;
+    }
+    button:hover {
+      background-color: #2563eb;
     }
     .footer {
       margin-top: 1.5rem;
@@ -51,14 +65,10 @@
   <div class="container">
     <h1>🚀 Join the Future</h1>
     <p>Stay ahead with weekly insights on AI, automation, and smarter workflows. No fluff. Just useful tools + ideas.</p>
-    <iframe
-      src="https://embeds.beehiiv.com/1ae9b876-d445-479e-8123-0dceb1348f0a"
-      class="beehiiv-iframe"
-      scrolling="no"
-      frameborder="0"
-      loading="lazy"
-      title="Newsletter Signup Form"
-    ></iframe>
+    <form action="https://formspree.io/f/yourformid" method="POST">
+      <input type="email" name="email" placeholder="Enter your email" required />
+      <button type="submit">→ Get the Insights</button>
+    </form>
     <div class="footer">
       Built for builders, tinkerers, and the AI-curious. ⚡
     </div>
