@@ -59,30 +59,58 @@
       font-size: 0.85rem;
       color: #94a3b8;
     }
+    #success-message {
+      display: none;
+      color: #4ade80;
+      margin-top: 1rem;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>🚀 Join the Future</h1>
     <p>Stay ahead with weekly insights on AI, automation, and smarter workflows. No fluff. Just useful tools + ideas.</p>
-    <form action="https://script.google.com/macros/s/AKfycbwT9nIJxDYu73w4VK8TdYW-HVRYC_Ba_vdTlzChRVamiNAMNsfyVPVSgF-l8qMWMQQb/exec" method="POST" onsubmit="showSuccessMessage(); return true;">
-      <input type="email" name="email" placeholder="Enter your email" required />
+    <form id="signup-form">
+      <input type="email" name="email" id="email" placeholder="Enter your email" required />
       <button type="submit">→ Get the Insights</button>
     </form>
-    <div id="success-message" style="display:none; color:#4ade80; margin-top:1rem;">
-      ✅ You're in! Check your inbox soon.
-    </div>
+    <div id="success-message">✅ You're in! Check your inbox soon.</div>
     <div class="footer">
       Built for builders, tinkerers, and the AI-curious. ⚡
     </div>
   </div>
 
   <script>
-    function showSuccessMessage() {
-      setTimeout(() => {
-        document.getElementById('success-message').style.display = 'block';
-      }, 500); // fake delay to simulate submission
-    }
+    const form = document.getElementById('signup-form');
+    const successMessage = document.getElementById('success-message');
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const scriptURL = 'https://script.google.com/macros/s/AKfycbwT9nIJxDYu73w4VK8TdYW-HVRYC_Ba_vdTlzChRVamiNAMNsfyVPVSgF-l8qMWMQQb/exec'; // Replace this
+
+      try {
+        await fetch(scriptURL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams({ email })
+        });
+
+        // Clear the form
+        form.reset();
+
+        // Show success message
+        successMessage.style.display = 'block';
+
+        // Hide after 2 seconds
+        setTimeout(() => {
+          successMessage.style.display = 'none';
+        }, 2000);
+      } catch (error) {
+        alert('Oops! Something went wrong.');
+        console.error('Error!', error.message);
+      }
+    });
   </script>
 </body>
 </html>
